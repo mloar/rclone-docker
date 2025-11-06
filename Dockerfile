@@ -1,6 +1,8 @@
 FROM debian:trixie-slim
 
 RUN apt-get update
-RUN apt-get install ca-certificates rclone -y
+RUN apt-get install ca-certificates jq rclone sudo -y
 
-CMD rclone serve webdav $RCLONE_REMOTE:$RCLONE_PATH --addr $RCLONE_ADDR:$RCLONE_PORT --htpasswd $RCLONE_HTPASSWD
+COPY auth_proxy.sh /
+
+CMD rclone serve webdav --addr 0.0.0.0:$PORT --auth-proxy /auth_proxy.sh
