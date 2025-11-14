@@ -1,7 +1,7 @@
-FROM debian:trixie-slim
+FROM alpine:latest
 
-RUN apt-get update
-RUN apt-get install ca-certificates jq rclone sudo -y
+RUN apk update
+RUN apk add bash ca-certificates jq rclone sudo
 
 COPY auth_proxy.sh /
 
